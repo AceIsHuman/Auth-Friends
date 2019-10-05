@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Button, Form, Header, Dimmer, Loader } from "semantic-ui-react";
+import { axiosWithAuth } from '../utils/axiosWithAuth';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -15,6 +16,12 @@ const Login = () => {
   const handleSubmit = e => {
     e.preventDefault();
     setIsLoading(true);
+    axiosWithAuth()
+      .post('login', credentials)
+      .then(res => {
+        setIsLoading(false);
+        console.log(res);
+      })
   };
 
   return (
