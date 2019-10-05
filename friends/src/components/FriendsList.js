@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
 import { Card, Icon, Header, Container } from "semantic-ui-react";
+import AddFriend from "./AddFriend";
 
 const FriendsList = props => {
   const [friends, setFriends] = useState([]);
@@ -20,6 +21,7 @@ const FriendsList = props => {
   return (
     <Container>
       <Header>Your Friends</Header>
+      <AddFriend />
       <Card.Group centered>
         {friends.map(friend => (
           <Card key={friend.id}>
