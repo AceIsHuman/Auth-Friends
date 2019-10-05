@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Grid, Button, Form, Header, Dimmer, Loader } from "semantic-ui-react";
-import { axiosWithAuth } from '../utils/axiosWithAuth';
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
@@ -17,11 +17,11 @@ const Login = () => {
     e.preventDefault();
     setIsLoading(true);
     axiosWithAuth()
-      .post('login', credentials)
+      .post("login", credentials)
       .then(res => {
         setIsLoading(false);
-        console.log(res);
-      })
+        localStorage.setItem("token", res.data.payload);
+      });
   };
 
   return (
@@ -47,6 +47,7 @@ const Login = () => {
             placeholder="Password"
             fluid
             name="password"
+            type="password"
             value={credentials.password}
             onChange={handleChange}
           />
