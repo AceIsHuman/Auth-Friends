@@ -22,12 +22,26 @@ const AddFriend = ({ setFriends }) => {
         setFriends(res.data);
       });
     closeModal();
+    setNewFriend({
+      name: "",
+      age: "",
+      email: ""
+    });
   };
 
   const closeModal = () => setToggleModal(false);
 
   return (
-    <Modal open={toggleModal} onClose={closeModal} trigger={<Button color="facebook" onClick={() => setToggleModal(true)}>Add Friend</Button>} centered>
+    <Modal
+      open={toggleModal}
+      onClose={closeModal}
+      trigger={
+        <Button color="facebook" onClick={() => setToggleModal(true)}>
+          Add Friend
+        </Button>
+      }
+      centered
+    >
       <Modal.Header>
         <Icon name="user" />
         Add a Friend
