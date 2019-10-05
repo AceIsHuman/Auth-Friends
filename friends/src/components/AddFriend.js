@@ -8,6 +8,7 @@ const AddFriend = ({ setFriends }) => {
     age: "",
     email: ""
   });
+  const [toggleModal, setToggleModal] = useState(false);
 
   const handleChange = e => {
     setNewFriend({ ...newFriend, [e.target.name]: e.target.value });
@@ -16,14 +17,17 @@ const AddFriend = ({ setFriends }) => {
   const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
-      .post('friends', newFriend)
+      .post("friends", newFriend)
       .then(res => {
-        setFriends(res.data)
-      })
-  }
+        setFriends(res.data);
+      });
+    closeModal();
+  };
+
+  const closeModal = () => setToggleModal(false);
 
   return (
-    <Modal trigger={<Button color="facebook">Add Friend</Button>} centered>
+    <Modal open={toggleModal} onClose={closeModal} trigger={<Button color="facebook" onClick={() => setToggleModal(true)}>Add Friend</Button>} centered>
       <Modal.Header>
         <Icon name="user" />
         Add a Friend
