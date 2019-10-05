@@ -1,15 +1,26 @@
 import React, { useState } from "react";
 import { Modal, Form, Button, Icon } from "semantic-ui-react";
+import { axiosWithAuth } from "../utils/axiosWithAuth";
 
-const AddFriend = () => {
+const AddFriend = ({ setFriends }) => {
   const [newFriend, setNewFriend] = useState({
     name: "",
     age: "",
     email: ""
   });
+
   const handleChange = e => {
     setNewFriend({ ...newFriend, [e.target.name]: e.target.value });
   };
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    axiosWithAuth()
+      .post('friends', newFriend)
+      .then(res => {
+        setFriends(res.data)
+      })
+  }
 
   return (
     <Modal trigger={<Button color="facebook">Add Friend</Button>} centered>
@@ -18,7 +29,7 @@ const AddFriend = () => {
         Add a Friend
       </Modal.Header>
       <Modal.Content>
-        <Form>
+        <Form onSubmit={handleSubmit}>
           <Form.Input
             name="name"
             placeholder="Name"

@@ -21,7 +21,7 @@ const FriendsList = props => {
   return (
     <Container>
       <Header>Your Friends</Header>
-      <AddFriend />
+      <AddFriend setFriends={setFriends} />
       <Card.Group centered>
         {friends.map(friend => (
           <Card key={friend.id}>
