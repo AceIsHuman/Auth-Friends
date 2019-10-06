@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { axiosWithAuth } from "../utils/axiosWithAuth";
-import { Card, Icon, Header, Container } from "semantic-ui-react";
+import { Card, Icon, Header, Container, Menu, Button } from "semantic-ui-react";
 import AddFriend from "./AddFriend";
 
 const FriendsList = props => {
@@ -20,8 +20,22 @@ const FriendsList = props => {
 
   return (
     <Container>
-      <Header>Your Friends</Header>
-      <AddFriend setFriends={setFriends} />
+      <Menu pointing secondary>
+        <Menu.Item>
+          <Header>Your Friends</Header>
+        </Menu.Item>
+        <Menu.Item position="right">
+          <AddFriend setFriends={setFriends} />
+        </Menu.Item>
+        <Menu.Item>
+          <Button color="grey" onClick={() => {
+            localStorage.removeItem('token');
+            props.history.push("/login");
+          }}>
+            Log Out
+          </Button>
+        </Menu.Item>
+      </Menu>
       <Card.Group centered>
         {friends.map(friend => (
           <Card key={friend.id}>
